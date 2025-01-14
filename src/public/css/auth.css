@@ -1,0 +1,55 @@
+.header{
+    justify-content: flex-start;
+}
+
+.search-form,
+.link{
+    display: none;
+}
+
+.auth-form{
+    width: 35%;
+    margin: 15vh auto;
+    text-align: center;
+}
+
+.auth-form__heading{
+    margin-bottom: 5vh;
+}
+
+.auth-form__group{
+    width: 100%;
+    text-align: left;
+}
+
+.auth-form__label{
+    font-weight: bold;
+}
+
+.auth-form__input{
+    width: 100%;
+    height: 5vh;
+    border: 1px solid #5F5F5F;
+    border-radius: 4px;
+}
+
+.auth-form__btn{
+    width: 100%;
+    height: 5vh;
+    margin: 5vh 0 3vh;
+    background-color: #FF5555;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: large;
+}
+
+.auth-link{
+    color: #0073CC;
+    text-decoration: none;
+}
+
+.auth-form__error-message{
+    color: red;
+}

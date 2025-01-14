@@ -1,0 +1,101 @@
+.app{
+    width: 100%;
+    padding: 0;
+    font-size: large;
+}
+
+.header{
+    width: 100%;
+    height: 7vh;
+    background-color: #000000;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.header-inner{
+    margin: 0 2%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    width: 25%;
+}
+
+@media screen and (max-width: 768px){
+    .logo{
+        width: 30%;
+    }
+}
+
+.logo-img{
+    width: 100%;
+}
+
+.search-form{
+    width: 35%;
+    height: 80%;
+    text-align: center;
+}
+
+.link{
+    width: 25%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px){
+    .link{
+        width: 30%;
+    }
+}
+
+.logout-link{
+    border: none;
+    color: #fff;
+    background-color: #000000;
+    font-size: large;
+}
+
+.login-link{
+    color: #fff;
+    text-decoration: none;
+}
+
+.profile-link{
+    color: #fff;
+    text-decoration: none;
+}
+
+.sell-button{
+    padding: 0.5vh 7%;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.sell-link{
+    background-color: #fff;
+    color: #000000;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px){
+    .logout-link,.login-link,
+    .profile-link,.sell-link{
+        font-size: small;
+    }
+
+}
+
+.content{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
