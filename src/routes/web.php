@@ -27,8 +27,6 @@ Route::middleware('auth')->group(function (){
     Route::get('/mypage', [ItemController::class, 'showMypage'])->name('mypage');
     Route::get('/mypage/profile', [ItemController::class, 'editProfile'])->name('edit');
     Route::post('/mypage/profile', [ItemController::class, 'update'])->name('update');
-    Route::get('/purchase/{item_id}', [ItemController::class, 'order'])->name('order');
-    Route::post('/purchase/{item_id}', [ItemController::class, 'storeOrder'])->name('storeOrder');
     Route::get('/purchase/address/{item_id}', [ItemController::class, 'editAddress'])->name('address');
     Route::post('/purchase/address/{item_id}', [ItemController::class, 'updateAddress'])->name('newAddress');
     Route::get('/sell', [ItemController::class, 'sellItem'])->name('sell');
@@ -36,6 +34,8 @@ Route::middleware('auth')->group(function (){
     Route::post('/item/{item_id}', [ItemController::class, 'comment'])->name('comment');
     Route::post('/items/{item}/like', [LikeController::class, 'toggle'])->name('like');
 
+    Route::get('/purchase/{item_id}', [StripeController::class, 'order'])->name('order');
+    Route::post('/purchase/{item_id}', [StripeController::class, 'storeOrder'])->name('storeOrder');
     Route::post('/checkout/{item_id}', [StripeController::class, 'checkout'])->name('checkout');
     Route::get('/success/{item_id}', [StripeController::class, 'success'])->name('success');
     Route::get('/cancel/{item_id}', [StripeController::class, 'cancel'])->name('cancel');

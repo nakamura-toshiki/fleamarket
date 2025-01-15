@@ -8,13 +8,11 @@ use App\Models\User;
 use App\Models\Profile;
 use App\Models\Category;
 use App\Models\ItemCategory;
-use App\Models\Buy;
 use App\Models\Comment;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\ProfileRequest;
-use App\Http\Requests\PurchaseRequest;
 
 class ItemController extends Controller
 {
@@ -22,7 +20,6 @@ class ItemController extends Controller
     {
         if (auth()->check()) {
             $user = auth()->user();
-
             if (!$user->profile) {
                 return redirect()->route('edit');
             }
@@ -85,7 +82,6 @@ class ItemController extends Controller
         return view('edit', compact('profile'));
     }
 
-
     public function update(ProfileRequest $request, User $user)
     {
         $user = auth()->user();
@@ -94,18 +90,11 @@ class ItemController extends Controller
         ]);
 
         $profileData = $request->only(['user_id', 'zip', 'address', 'building']);
-
         $profile = $user->profile ?? new Profile;
 
         if ($request->hasFile('image')) {
             $profileData['image'] = $request->file('image')->store('image', 'public');
         }
-
-        $zip = $request->zip;
-        if(strpos($zip, '-') === false){
-            $zip = substr($zip, 0, 3). '-'. substr($zip, 3);
-        }
-        $profileData['zip'] = $zip;
 
         $profile->fill($profileData);
         $profile->user()->associate($user);
@@ -118,7 +107,6 @@ class ItemController extends Controller
     public function showItem($item_id)
     {
         $item = Item::with('categories', 'likes', 'comments', 'user.profile')->find($item_id);
-
         $formattedPrice = number_format($item->price);
 
         $isLiked = auth()->check() ? $item->isLikedByUser() : false;
@@ -126,7 +114,6 @@ class ItemController extends Controller
         $user = auth()->user();
 
         $comment = $item->comments()->first();
-
         $commentCount = $item->comments->count();
 
         $userId = auth()->id();
@@ -134,7 +121,6 @@ class ItemController extends Controller
 
         return view('show', compact('item', 'formattedPrice', 'isLiked', 'user', 'comment', 'commentCount', 'profile'));
     }
-
 
     public function comment(CommentRequest $request, $item_id)
     {
@@ -152,58 +138,18 @@ class ItemController extends Controller
     }
 
 
-    public function order($item_id, User $user)
-    {
-        $item = Item::find($item_id);
-
-        $formattedPrice = number_format($item->price);
-
-        $userId = auth()->id();
-        $profile = Profile::with('user')->where('user_id', $userId)->first();
-
-        if(!$profile){
-            return redirect('/email/verify');
-        }
-
-        return view('purchase', compact('item', 'formattedPrice', 'profile'));
-    }
-
-
-    public function storeOrder(PurchaseRequest $request, $item_id)
-    {
-        try{
-            $buy = new Buy();
-            $buy->user_id = auth()->id();
-            $buy->item_id = $item_id;
-            $buy->zip = $request->input('zip');
-            $buy->address = $request->input('address');
-            $buy->payment = $request->input('payment');
-            $buy->status= 'pending';
-            $buy->save();
-
-            return response()->json(['success' => true]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
-        }
-    }
-
-
     public function editAddress($item_id)
     {
         $item = Item::find($item_id);
-
         $user = auth()->user();
-
         $address = Profile::where('user_id', auth()->id())->first(['zip', 'address', 'building']);
 
         return view('address', compact('item', 'address'));
     }
 
-
     public function updateAddress(AddressRequest $request, $item_id)
     {
         $item = Item::find($item_id);
-
         $profile = Profile::where('user_id', auth()->id())->firstOrFail();
         $profile->update([
             'zip' => $request->input('zip'),
@@ -222,14 +168,11 @@ class ItemController extends Controller
         return view('sell', compact('categories'));
     }
 
-
     public function store(ExhibitionRequest $request)
     {
         $user = auth()->user();
-
         $imagePath = $request->file('image')->store('image', 'public');
         $path = basename($imagePath);
-
         $item = Item::create([
             'user_id' => $user->id,
             'name' => $request->input('name'),
