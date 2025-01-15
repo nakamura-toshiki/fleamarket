@@ -25,13 +25,22 @@ class ProfileRequest extends FormRequest
     {
         return [
             'image' => 'mimes:jpeg,png',
+            'name' => 'required',
+            'zip' => 'required | regex:/^[0-9]{3}-[0-9]{4}$/',
+            'address' => 'required',
+            'building' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'image.mimes' => 'プロフィール画像は「.jpeg」または「.png」形式でアップロードしてください'
+            'image.mimes' => 'プロフィール画像は「.jpeg」または「.png」形式でアップロードしてください',
+            'name.required' => 'お名前を入力してください',
+            'zip.required' => '郵便番号を入力してください',
+            'zip.regex' => '郵便番号はハイフンありの8文字で入力してください',
+            'address.required' => '住所を入力してください',
+            'building.required' => '建物名を入力してください',
         ];
     }
 }

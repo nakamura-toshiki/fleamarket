@@ -19,6 +19,11 @@
             <label class="form-img__label" for="image">画像を選択する</label>
             <input type="file" name="image" id="image" style="display: none;">
         </div>
+        <p class="edit-form__error-message">
+            @error('image')
+                {{ $message }}
+            @enderror
+        </p>
         <div class="form-group">
             <label class="form-label" for="name">ユーザー名</label>
             <input class="form-input" type="text" name="name" id="name" value="{{ auth()->user()->name }}">
