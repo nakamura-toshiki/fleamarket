@@ -98,7 +98,7 @@ class ItemController extends Controller
         $profile = $user->profile ?? new Profile;
 
         if ($request->hasFile('image')) {
-            $profileData['image'] = $request->file('image')->store('profile-img', 'public');
+            $profileData['image'] = $request->file('image')->store('image', 'public');
         }
 
         $zip = $request->zip;
