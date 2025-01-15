@@ -2,12 +2,12 @@
 
 ## 環境構築
 ### Dockerビルド
-・git clone git@github.com:nakamura-toshiki/fleamarket.git  
-・docker-compose up -d --build
+1. git clone git@github.com:nakamura-toshiki/fleamarket.git  
+2. docker-compose up -d --build
 ### Laravel環境構築
-・docker-compose exec php bash  
-・composer install  
-・cp .env.example .env,環境変数を変更  
+1. docker-compose exec php bash  
+2. composer install  
+3. cp .env.example .env,環境変数を変更  
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -30,7 +30,16 @@ MAIL_FROM_NAME="${APP_NAME}"
 STRIPE_KEY=pk_test_51QWaayK7mVSKK9zQmpmJSm7AjfEvINznQGXoBEnokHOcWj7pYwC5HoPJa8Q7O6hPTjIEyA8G6yyNsnOleiaGXhNN007XU5vnmw
 STRIPE_SECRET=sk_test_51QWaayK7mVSKK9zQZs1gi0EcjT15RQo0mcrkw1mdoCXrUKFqmEw2LXg5KZz75LaYZaMNDeeFRPZkLgkRJBJLswpp002RuTqNgO
 ```
+4. php artisan key:generate  
+5. php artisan migrate  
+6. php artisan db:seed  
 ## URL
 ・開発環境：http://localhost/  
 ・phpMyAdmin:：http://localhost:8080/
 ## 使用技術
+・php 7.4.9  
+・Laravel 8  
+・mysql 8.0.26  
+・nginx 1.21.1
+## ER図
+![drowio](
