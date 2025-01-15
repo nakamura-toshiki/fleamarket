@@ -15,6 +15,41 @@ use App\Http\Requests\PurchaseRequest;
 
 class StripeController extends Controller
 {
+    public function order($item_id, User $user)
+    {
+        $item = Item::find($item_id);
+
+        $formattedPrice = number_format($item->price);
+
+        $userId = auth()->id();
+        $profile = Profile::with('user')->where('user_id', $userId)->first();
+
+        if(!$profile){
+            return redirect('/email/verify');
+        }
+
+        return view('purchase', compact('item', 'formattedPrice', 'profile'));
+    }
+
+
+    public function storeOrder(PurchaseRequest $request, $item_id)
+    {
+        try{
+            $buy = new Buy();
+            $buy->user_id = auth()->id();
+            $buy->item_id = $item_id;
+            $buy->zip = $request->input('zip');
+            $buy->address = $request->input('address');
+            $buy->payment = $request->input('payment');
+            $buy->status= 'pending';
+            $buy->save();
+
+            return response()->json(['success' => true]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
+    }
+
     public function checkout($item_id)
     {
         Stripe::setApiKey(config('services.stripe.secret'));
