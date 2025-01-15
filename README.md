@@ -42,4 +42,4 @@ STRIPE_SECRET=sk_test_51QWaayK7mVSKK9zQZs1gi0EcjT15RQo0mcrkw1mdoCXrUKFqmEw2LXg5K
 ・mysql 8.0.26  
 ・nginx 1.21.1
 ## ER図
-![drowio](
+![drowio](https://github.com/nakamura-toshiki/fleamarket/blob/main/.drawio.png?raw=true)
